@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "github.com/larkintuckerllc/workload/pkg/workload"
+option go_package = "github.com/larkintuckerllc/workload/pkg/workload";
 option java_multiple_files = true;
-option java_package = "com.larkintuckerllc.workload"
+option java_package = "com.larkintuckerllc.workload";
 option java_outer_classname = "WorkloadProto";
 
 package workload;
