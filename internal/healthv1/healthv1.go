@@ -17,3 +17,10 @@ func (s *HealthServer) Check(ctx context.Context, in *pb.HealthCheckRequest) (*p
 		Status: pb.HealthCheckResponse_SERVING,
 	}, nil
 }
+
+func (s *HealthServer) Watch(in *pb.HealthCheckRequest, server pb.Health_WatchServer) error {
+	log.Printf("Received Watch")
+	return server.Send(&pb.HealthCheckResponse{
+		Status: pb.HealthCheckResponse_SERVING,
+	})
+}
