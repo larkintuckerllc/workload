@@ -1,5 +1,7 @@
 FROM golang:1.16 AS grpc-health-probe-builder
-RUN go get github.com/grpc-ecosystem/grpc-health-probe
+RUN GRPC_HEALTH_PROBE_VERSION=v0.3.6 && \
+    wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+    chmod +x /bin/grpc_health_probe
 
 FROM golang:1.16 AS grpcurl-builder
 RUN go get github.com/fullstorydev/grpcurl/...
@@ -13,7 +15,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v ./cmd/workload
 
 FROM alpine:3.13
-COPY --from=grpc-health-probe-builder /go/bin/grpc-health-probe /usr/local/bin/
+COPY --from=grpc-health-probe-builder /bin/grpc_health_probe /usr/local/bin/
 COPY --from=grpcurl-builder /go/bin/grpcurl /usr/local/bin/
 COPY --from=builder /go/bin/workload /usr/local/bin/
 EXPOSE 50051
