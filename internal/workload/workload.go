@@ -1,8 +1,10 @@
 package workload
 
 import (
+	"fmt"
 	"log"
 	"net"
+	"os"
 
 	"github.com/larkintuckerllc/workload/internal/greet"
 	"github.com/larkintuckerllc/workload/internal/healthv1"
@@ -13,11 +15,14 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-const (
-	port = ":50051"
-)
-
 func Execute() {
+	var port string
+	envPort := os.Getenv("PORT")
+	if envPort == "" {
+		port = ":50051"
+	} else {
+		port = fmt.Sprintf(":%s", envPort)
+	}
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
