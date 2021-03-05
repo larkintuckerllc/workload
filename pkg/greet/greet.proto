@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-option go_package = "github.com/larkintuckerllc/workload/pkg/workload";
+option go_package = "github.com/larkintuckerllc/workload/pkg/greet";
 option java_multiple_files = true;
-option java_package = "com.larkintuckerllc.workload";
-option java_outer_classname = "WorkloadProto";
+option java_package = "com.larkintuckerllc.greet";
+option java_outer_classname = "GreetProto";
 
-package workload;
+package greet;
 
 service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply) {}
