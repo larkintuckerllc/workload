@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/larkintuckerllc/workload/pkg/ping";
+option java_multiple_files = true;
+option java_package = "com.larkintuckerllc.ping";
+option java_outer_classname = "PingProto";
+
+package ping;
+
+service Pinger {
+  rpc Ping(PingRequest) returns (PingReply) {}
+}
+
+message PingRequest {
+}
+
+message PingReply {
+  string message = 1;
+}
