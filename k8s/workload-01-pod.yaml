@@ -6,12 +6,21 @@ metadata:
   name: workload
 spec:
   containers:
-  - image: sckmkny/workload:0.1.0
+  - image: sckmkny/workload:0.2.0
     name: workload
     ports:
     - name: grpc
       containerPort: 50051
+    livenessProbe:
+      exec:
+        command:
+        - grpcurl
+        - -plaintext
+        - localhost:50051
+        - ping.Pinger/Ping
     readinessProbe:
       exec:
-        command: ["grpc_health_probe", "-addr=:50051"]
+        command:
+        - grpc_health_probe
+        - -addr=:50051
 
